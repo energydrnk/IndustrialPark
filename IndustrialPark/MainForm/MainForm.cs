@@ -141,7 +141,9 @@ namespace IndustrialPark
         {
             autoSaveOnClosingToolStripMenuItem.Checked = settings.AutosaveOnClose;
             autoLoadOnStartupToolStripMenuItem.Checked = settings.AutoloadOnStartup;
+
             checkForUpdatesOnStartupToolStripMenuItem.Checked = settings.CheckForUpdatesOnStartup;
+            AutomaticUpdater.LastCheckedForUpdate = settings.LastCheckedForUpdate;
 
             drawOnlyFirstMINFReferenceToolStripMenuItem.Checked = settings.drawOnlyFirstMinf;
             AssetMINF.drawOnlyFirst = settings.drawOnlyFirstMinf;
@@ -234,6 +236,7 @@ namespace IndustrialPark
                 AutoloadOnStartup = autoLoadOnStartupToolStripMenuItem.Checked,
                 LastProjectPath = currentProjectPath,
                 CheckForUpdatesOnStartup = checkForUpdatesOnStartupToolStripMenuItem.Checked,
+                LastCheckedForUpdate = AutomaticUpdater.LastCheckedForUpdate,
                 drawOnlyFirstMinf = AssetMINF.drawOnlyFirst,
                 renderBasedOnLodt = AssetMODL.renderBasedOnLodt,
                 renderBasedOnPipt = AssetMODL.renderBasedOnPipt,
@@ -366,7 +369,7 @@ namespace IndustrialPark
 
         private void CheckForUpdatesNowToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (AutomaticUpdater.UpdateIndustrialPark(out bool hasChecked))
+            if (AutomaticUpdater.UpdateIndustrialPark(out bool hasChecked, true))
             {
                 Close();
                 System.Diagnostics.Process.Start(Application.StartupPath + "/IndustrialPark.exe");

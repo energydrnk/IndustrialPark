@@ -199,6 +199,7 @@
     <PackageReference Include="DiscordRichPresence" Version="1.2.1.24" />
     <PackageReference Include="DSoft.SharpDX.Desktop" Version="4.3.2406.51" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Octokit" Version="13.0.1" />
     <PackageReference Include="Ps2IsoTools" Version="1.1.2" />
     <PackageReference Include="SharpDX.D3DCompiler" Version="4.2.0" />
     <PackageReference Include="SharpDX.Direct3D11" Version="4.2.0" />
