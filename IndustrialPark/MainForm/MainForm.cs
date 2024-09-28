@@ -1088,10 +1088,13 @@ namespace IndustrialPark
         public void SetSelectedIndex(uint? assetID)
         {
             bool add = PressedKeys.Contains(Keys.ControlKey) || PressedKeys.Contains(Keys.Control);
-            if (add && assetID == null)
-                return;
+
             foreach (ArchiveEditor ae in archiveEditors)
-                ae.SetSelectedIndex(assetID ?? 0, false, add);
+            {
+                if (!ae.HasSelectedAssets && !assetID.HasValue)
+                    continue;
+                ae.SetSelectedIndex(assetID, false, add);
+            }
         }
 
         /// <summary>
