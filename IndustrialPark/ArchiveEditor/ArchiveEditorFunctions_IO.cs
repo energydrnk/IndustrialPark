@@ -42,8 +42,11 @@ namespace IndustrialPark
 
         public void ImportHip((HipFile, Game, Platform) hip, bool forceOverwrite)
         {
-            if (hip.Item3 == Platform.Unknown)
-                hip.Item3 = platform;
+            while (hip.Item2 == Game.Unknown)
+                hip.Item2 = ChooseGame.GetGame();
+
+            while (hip.Item3 == Platform.Unknown)
+                hip.Item3 = ChoosePlatformDialog.GetPlatform();
 
             UnsavedChanges = true;
 
