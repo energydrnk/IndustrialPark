@@ -135,6 +135,7 @@
             toolStripMenuItem_EditHeader = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItem_EditData = new System.Windows.Forms.ToolStripMenuItem();
             toolStripMenuItem_MultiEdit = new System.Windows.Forms.ToolStripMenuItem();
+            importJSPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             statusStrip1.SuspendLayout();
             groupBoxLayers.SuspendLayout();
@@ -192,7 +193,7 @@
             // 
             // editToolStripMenuItem
             // 
-            editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { convertArchiveToolStripMenuItem, layersToolStripMenuItem, mergeSimilarAssetsToolStripMenuItem, applyScaleToolStripMenuItem, verifyArchiveToolStripMenuItem, legacySaveToolStripMenuItem, toolStripSeparator3, hipHopFileToolStripMenuItem, texturesToolStripMenuItem, soundsToolStripMenuItem, importModelsToolStripMenuItem, importMultipleAssetsToolStripMenuItem });
+            editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { convertArchiveToolStripMenuItem, layersToolStripMenuItem, mergeSimilarAssetsToolStripMenuItem, applyScaleToolStripMenuItem, verifyArchiveToolStripMenuItem, legacySaveToolStripMenuItem, toolStripSeparator3, hipHopFileToolStripMenuItem, texturesToolStripMenuItem, soundsToolStripMenuItem, importModelsToolStripMenuItem, importMultipleAssetsToolStripMenuItem, importJSPToolStripMenuItem });
             editToolStripMenuItem.Name = "editToolStripMenuItem";
             resources.ApplyResources(editToolStripMenuItem, "editToolStripMenuItem");
             // 
@@ -810,6 +811,12 @@
             resources.ApplyResources(toolStripMenuItem_MultiEdit, "toolStripMenuItem_MultiEdit");
             toolStripMenuItem_MultiEdit.Click += buttonMultiEdit_Click;
             // 
+            // importJSPToolStripMenuItem
+            // 
+            importJSPToolStripMenuItem.Name = "importJSPToolStripMenuItem";
+            resources.ApplyResources(importJSPToolStripMenuItem, "importJSPToolStripMenuItem");
+            importJSPToolStripMenuItem.Click += importJSPToolStripMenuItem_Click;
+            // 
             // ArchiveEditor
             // 
             resources.ApplyResources(this, "$this");
@@ -947,5 +954,6 @@
         private System.Windows.Forms.ToolStripMenuItem coll31ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem coll36toolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem coll36sortTrianglesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem importJSPToolStripMenuItem;
     }
 }

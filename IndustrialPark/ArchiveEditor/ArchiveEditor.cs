@@ -262,6 +262,8 @@ namespace IndustrialPark
             buildCollisionTreeForAllModelsToolStripMenuItem.Enabled = archive.ContainsAssetWithType(AssetType.Model);
             coll36toolStripMenuItem.Enabled = archive.game >= Game.Incredibles;
             coll36sortTrianglesToolStripMenuItem.Enabled = archive.game >= Game.Incredibles;
+
+            importJSPToolStripMenuItem.Enabled = archive.game >= Game.BFBB;
         }
 
         private void PopulateLayerTypeComboBox()
@@ -740,12 +742,12 @@ namespace IndustrialPark
         private void importModelsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             (List<Section_AHDR> AHDRs,
-                bool overwrite, 
-                bool makeSimps, 
-                bool ledgeGrabSimps, 
-                bool piptVcolors, 
-                bool solidSimps, 
-                bool jsp, 
+                bool overwrite,
+                bool makeSimps,
+                bool ledgeGrabSimps,
+                bool piptVcolors,
+                bool solidSimps,
+                bool jsp,
                 bool placeOnExistingDefaultLayer) = ImportModel.GetModels(archive.game, archive.platform, archive.NoLayers);
 
             if (AHDRs != null)
@@ -758,6 +760,25 @@ namespace IndustrialPark
                 PopulateLayerComboBox();
                 OnEditorUpdate();
                 SetSelectedIndices(assetIDs, true);
+                SetMenuItemsEnabled();
+            }
+        }
+
+        private void importJSPToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            (List<Section_AHDR> AHDRs, bool overwrite) = ImportModel.GetJSP(archive.game, archive.platform, archive.NoLayers);
+
+            if (AHDRs != null)
+            {
+                if (archive.game == Game.BFBB)
+                {
+                    archive.RemoveLayerOfType(LayerType.BSP);
+                    archive.RemoveLayerOfType(LayerType.JSPINFO);
+                }
+                OnEditorUpdate();
+                AssetID jspInfoId = archive.CreateJSPInfoAndBSPLayers(AHDRs, overwrite);
+                PopulateLayerComboBox();
+                SetSelectedIndices([jspInfoId], true);
                 SetMenuItemsEnabled();
             }
         }
@@ -1749,7 +1770,7 @@ namespace IndustrialPark
                                     eventSendIDName = ((EventBFBB)link.EventSendID).ToString();
                                     eventReceiveIDName = ((EventBFBB)link.EventReceiveID).ToString();
                                 }
-                                else if (archive.game == Game.Scooby) 
+                                else if (archive.game == Game.Scooby)
                                 {
                                     eventSendIDName = ((EventScooby)link.EventSendID).ToString();
                                     eventReceiveIDName = ((EventScooby)link.EventReceiveID).ToString();
@@ -2040,7 +2061,7 @@ namespace IndustrialPark
 
             foreach (var modl in archive.GetAllAssets().OfType<AssetMODL>())
             {
-                try 
+                try
                 {
                     modl.BuildCollisionTree(collVer);
                 }

@@ -276,7 +276,7 @@ namespace IndustrialPark.Models
                 PostProcessSteps.Debone |
                 PostProcessSteps.FindInstances |
                 PostProcessSteps.FindInvalidData |
-                PostProcessSteps.GenerateNormals |
+                (normals ? PostProcessSteps.GenerateNormals : 0) |
                 PostProcessSteps.JoinIdenticalVertices |
                 PostProcessSteps.FindDegenerates |
                 PostProcessSteps.ValidateDataStructure |
@@ -431,13 +431,13 @@ namespace IndustrialPark.Models
                 else
                 {
                     Normals.AddRange(m.Normals.Select(n => new Vertex3(n.X, n.Y, n.Z)).ToList());
-                    textCoords2.AddRange(m.TextureCoordinateChannels[1].Select(t => new Vertex2(t.X, t.Y)).ToList());
+                    //textCoords2.AddRange(m.TextureCoordinateChannels[1].Select(t => new Vertex2(t.X, t.Y)).ToList());
 
                     if (m.HasTextureCoords(0))
                         textCoords.AddRange(m.TextureCoordinateChannels[0].Select(t => new Vertex2(t.X, t.Y)).ToList());
                     else if (texcoords)
                         for (int i = 0; i < m.VertexCount; i++)
-                            textCoords.Add(new Vertex2(0f, 0f));
+                            textCoords.Add(new Vertex2(1f, 1f));
 
                     if (m.HasVertexColors(0))
                         vertexColors.AddRange(m.VertexColorChannels[0].Select(c => new RenderWareFile.Color(c.R, c.G, c.B, c.A)).ToList());
@@ -676,7 +676,8 @@ namespace IndustrialPark.Models
                     specular = 1f,
                     diffuse = 1f,
                     vertexColors = vertexColors,
-                    textCoords = textCoords.Concat(textCoords2).ToArray(),
+                    textCoords = textCoords,
+                    textCoords2 = textCoords2,
                     triangles = triangles,
                     morphTargets = new MorphTarget[]
                     {
